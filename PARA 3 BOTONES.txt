@@ -1,0 +1,129 @@
+CONDITIONALS_POST.H
+//Custom user interface
+#define HAS_CUSTOM_GREENBTN (PIN_EXISTS(CUSTOM_GREENBTN)
+//**********************************************
+CONFIGURATION.H
+DESPUES DE CONFIGURAR LA PANTALLA
+//	@section machine
+#define CUSTOM_GREENBTN_PIN	28
+//************************************************
+marlin_main.cpp
+
+#define HAS_CUSTOM_GREENBTN (PIN_EXISTS(CUSTOM_GREENBTN))
+
+debajo de #if ENABLED(SDSUPPORT) && DISABLED(ULTRA_LCD)
+
+#if HAS_CUSTOM_GREENBTN
+	SET_INPUT_PULLUP(HAS_CUSTOM_GREENBTN_PIN);
+
+DEBAJO DE HASKILL PONER
+
+#if HAS_CUSTOM_GREENBTN
+static int customGreenBtnCounter
+*************************************
+marlincore.cpp	499
+
+podria valer para los botones
+
+  #if HAS_HOME
+    // Handle a standalone HOME button
+    constexpr millis_t HOME_DEBOUNCE_DELAY = 1000UL;
+    static millis_t next_home_key_ms; // = 0
+    if (!IS_SD_PRINTING() && !READ(HOME_PIN)) { // HOME_PIN goes LOW when pressed
+      if (ELAPSED(ms, next_home_key_ms)) {
+        next_home_key_ms = ms + HOME_DEBOUNCE_DELAY;
+        LCD_MESSAGE(MSG_AUTO_HOME);
+        queue.inject_P(G28_STR);
+      }
+    }
+  #endif
+////////////////////////////
+    case KS_IDLE:
+      if (!READ(BTN_PRINT)) {                                       // Print/Pause/Resume button pressed?
+        key_time = ms;                                              // Save start time
+        key_status++;                                               // Go to debounce test
+      }
+      break;
+/////////////////////////
+
+
+
+//#if HAS_CUSTOM_GREENBTN
+  //static int CounterCustomGreenBtn = 0;
+  #define static int CounterCustomGreenBtn = 0;
+  #define const int CUSTOM_GREENBTN_DELAY = 750;
+  //int c;
+  #define int CustomGreenBtnFlag
+  //#if (!READ(CUSTOM_GREENBTN_PIN))
+  #if (!READ(CUSTOM_GREENBTN_PIN))
+    CounterCustomGreenBtn ++;
+  #else
+//      CounterCustomGreenBtn := 0;
+//      #if (CustomGreenBtnCounter == CUSTOM_GREENBTN_DELAY)
+//      {
+//        #define int CustomGreenBtnFlag
+//        switch (CustomGreenBtnFlag)
+//        {
+//          case 0:
+//          //queue.inject(F(BUTTON##N##_GCODE));
+//              queue.inject(F(BUTTON##N##_GCODE));
+            //  enqueue_and_echo.commands_P(PSTR"G28");
+//              CustomGreenBtnFlag++;
+//          case 1:
+//              enqueue_and_echo.commands_P(PSTR"M104 S200");
+//              CustomGreenBtnFlag++;
+//          case 2:
+//              enqueue_and_echo.commands_P(PSTR"M104 S0");
+//              CustomGreenBtnFlag++;
+//        }
+        //enqueue_and_echo.commands_P(PSTR"G28");
+
+//      } 
+//      #endif
+  #endif
+
+#endif
+*/
+
+
+        #define int CustomGreenBtnFlag
+        switch (CustomGreenBtnFlag)
+        {
+          case 0:
+//          //queue.inject(F(BUTTON##N##_GCODE));
+//              queue.inject(F(BUTTON##N##_GCODE));
+            //  enqueue_and_echo.commands_P(PSTR"G28");
+//              CustomGreenBtnFlag++;
+          case 1:
+//              enqueue_and_echo.commands_P(PSTR"M104 S200");
+//              CustomGreenBtnFlag++;
+          case 2:
+//              enqueue_and_echo.commands_P(PSTR"M104 S0");
+//              CustomGreenBtnFlag++;
+        }
+        //enqueue_and_echo.commands_P(PSTR"G28");
+
+//      } 
+
+
+///////////////////////////////////
+#define CUSTOM_USER_BUTTONS
+#if ENABLED(CUSTOM_USER_BUTTONS)
+  #define BUTTON1_PIN 28
+  //#define BUTTON1_PIN -1
+  #if PIN_EXISTS(BUTTON1)
+      #define BUTTON1_HIT_STATE    LOW       // State of the triggered button. NC=LOW. NO=HIGH.
+      #define BUTTON1_WHEN_PRINTING false     // Button allowed to trigger during printing?
+      #define BUTTON1_GCODE "G28"
+      //#define BUTTON1_GCODE "G90 \nM82 \nM106 S0 \nM104 S210 T0 \nM109 S210 T0 \nG1 Z15 F3000 \nG1 E30 F300 \nM84 \nM104 S0 \nM18 \nM2"
+      #define BUTTON1_DESC          "Cargando Filamento"  // Optional string to set the LCD status
+  #endif
+
+
+
+
+
+
+
+
+
